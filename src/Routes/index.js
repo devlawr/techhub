@@ -11,12 +11,14 @@ const {RegisterInputValidator} = Validators;
 const { RegisterValidator } = validator;
 const { validateInput } = helpers;
 const {existingMobile, existingEmail} = findExisting;
-const { Register, FindAll, getAllMobile } = RegisterControllers;
+const { Register, FindAll } = RegisterControllers;
 
 
+
+router.get("/all/users", FindAll);
 
 router.post(
-  "/auth/register",
+  "/register",
    RegisterValidator,
   RegisterInputValidator,
   validateInput,
@@ -24,6 +26,4 @@ router.post(
    existingMobile,
   Register
 );
-router.get('/getall/user', FindAll );
-// router.get("/getall/mobile", getAllMobile);
 export default router;

@@ -1,17 +1,22 @@
 import express from "express";
 import cors from "cors";
 import dotEnv from "dotenv";
-import db from './src/Models/index.js';
-import { dbConfig } from './src/Db/config.js';
+import db from "./src/Models/index.js";
+import { dbConfig } from "./src/Db/config.js";
 import Routes from "./src/Routes/index.js";
-const uri = process.env.URI
+const uri = process.env.URI;
 const app = express();
 const port = process.env.PORT ?? 4000;
 dotEnv.config();
 
-
-
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -23,10 +28,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-// mongodb database conncetions
-
 db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB} ?? ${uri}`, {
+  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -38,15 +41,16 @@ db.mongoose
   });
 
 //   app home page
+
+app.use(Routes);
+
 app.get("/", (req, res) => {
   res.send("Welcome to coding tech-hub");
 });
 
-app.get('/*', (req,res) => {
-  res.send('the requested url does not exist')
-})
-
-app.use(Routes)
+app.all("/*", (req, res) => {
+  res.send("the requested url does not exist");
+});
 
 // start app on dynamic port or 5000
 
