@@ -2,13 +2,13 @@ import fieldValidator from "../utils/emptyFiled";
 
 class Validator {
   constructor() {
-    this.RegisterValidator = this.RegisterValidator.bind(this);
+    this.SessionValidator = this.SessionValidator.bind(this);
   }
 
-  RegisterValidator(req, res, next) {
+  SessionValidator(req, res, next) {
     const emptyFields = fieldValidator.call(
-      this.RegisterValidator,
-      "register",
+      this.SessionValidator,
+      "session",
       req.body
     );
     if (emptyFields.status === 400) {

@@ -58,4 +58,33 @@ export default class RegisterControllers {
       }
     }
   }
+  // findand delete
+
+  static async DeleteUser(req, res) {
+    const email = req.params.email;
+    const FindUser = await Register.findOneAndDelete({ email });
+    if (!FindUser) {
+      return res.status(400).json({
+        message: `${email} does not exist in the database`,
+      });
+    }
+    return res.status(200).json({
+      message: `${email} deleted successfully`,
+    });
+  }
+  static async SingleUser(req, res) {
+    const email = req.params.email;
+    const user = await Register.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        message: `${email} does not exist in the database`,
+      });
+    }
+
+    return res.status(200).json({
+      payload: user,
+      message: `${email} info retrieved successfully`,
+    });
+  }
 }

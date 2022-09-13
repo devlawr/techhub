@@ -1,25 +1,18 @@
 import { check } from "express-validator";
 
-const Validators = {
-  RegisterInputValidator: [
-    check("firstname")
+const SessionValidators = {
+  SessionInputValidators: [
+    check("name")
       .trim()
       .not()
       .isEmpty()
       .withMessage("Please fill the field for firstname")
       .matches(/^[a-zA-Z ]+$/)
       .withMessage("Please fill the field for firstname"),
-    check("firstname")
+    check("name")
       .custom((value) => !/\s/.test(value))
       .withMessage("No spaces are allowed in the firstname"),
-    check("prefference")
-      .trim()
-      .not()
-      .isEmpty()
-      .withMessage("Please fill the field for prefference")
-      .matches(/^[a-zA-Z ]+$/)
-      .withMessage("Please fill the field for prefference"),
-   
+  
     check("country")
       .trim()
       .not()
@@ -27,17 +20,7 @@ const Validators = {
       .withMessage("Please fill the field for cuntry")
       .matches(/^[a-zA-Z ]+$/)
       .withMessage("Please fill the field for country"),
-   
-    check("lastname")
-      .trim()
-      .not()
-      .isEmpty()
-      .withMessage("Please fill the field for lastname")
-      .matches(/^[a-zA-Z ]+$/)
-      .withMessage("Please fill the field for lastname"),
-    check("lastname")
-      .custom((value) => !/\s/.test(value))
-      .withMessage("No spaces are allowed in the lastname"),
+
 
     check("email")
       .trim()
@@ -68,4 +51,4 @@ const Validators = {
   ],
 };
 
-export default Validators;
+export default SessionValidators;

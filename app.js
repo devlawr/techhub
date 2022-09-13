@@ -26,11 +26,15 @@ app.use(function (req, res, next) {
 });
 
 db.mongoose
-// ``
-  .connect(`${uri}` || ` mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  // ``
+  .connect(
+    // \`${uri}` ||
+    `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log("Successfully connect to MongoDB.");
   })
