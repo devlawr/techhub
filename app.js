@@ -26,10 +26,8 @@ app.use(function (req, res, next) {
 });
 
 db.mongoose
-  // ``
   .connect(
-    // \`${uri}` ||
-    `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`,
+    `${uri}`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
